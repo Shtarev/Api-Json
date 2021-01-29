@@ -75,29 +75,23 @@ function in_api($res) {
 */
 class Request
 {
-    public function __construct() {
-		//
-	}
-	// текущий браузерный путь без GET-параметров ( http://site.ru/admin/index?id=5&title=item  = http://site.ru/admin/index)
+    public function __construct() {}
     public static function url_noparam() {
         $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 		return 'http://'.$_SERVER['HTTP_HOST'].$uri_parts[0];
     }
-	// браузерный путь к директории где файл ( http://site.ru/dir/ )
     public static function root_dir() {
         $pieces = explode('/', $_SERVER['PHP_SELF']);    
 		$file = array_pop($pieces);
 		$url = $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];  
         return "http://".mb_strstr($url, $file, true);
     }
-	// серверный путь к директории где файл ( C:/OSPanel/domains/site.ru/dir/ )
     public static function _root_dir() {
         $pieces = explode('/', $_SERVER['PHP_SELF']);    
 		$file = array_pop($pieces);
 		$url = $_SERVER['DOCUMENT_ROOT'].$_SERVER['PHP_SELF'];  
         return mb_strstr($url, $file, true);
     }
-    // текущий запрос ( GET, POST, PUT, DELETE )
     public static function request() {
         $var = $_SERVER['REQUEST_METHOD'];
         switch ($var)
